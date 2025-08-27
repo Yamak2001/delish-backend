@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MerchantPricing extends Model
 {
+    protected $table = 'merchant_pricing';
+    
     protected $fillable = [
         'merchant_id',
         'recipe_id',
