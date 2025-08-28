@@ -36,7 +36,10 @@ return [
     ],
 
     'whatsapp' => [
-        'token' => env('WHATSAPP_ACCESS_TOKEN'),
+        'app_id' => env('WHATSAPP_APP_ID'),
+        'app_secret' => env('WHATSAPP_APP_SECRET'),
+        'client_token' => env('WHATSAPP_CLIENT_TOKEN'),
+        'access_token' => env('WHATSAPP_ACCESS_TOKEN'),
         'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
         'verify_token' => env('WHATSAPP_VERIFY_TOKEN'),
         'webhook_secret' => env('WHATSAPP_WEBHOOK_SECRET'),

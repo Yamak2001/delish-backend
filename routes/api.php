@@ -21,10 +21,9 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
 
-// WhatsApp webhook (public endpoint)
+// WhatsApp webhook (public endpoint) - handles both GET (verification) and POST (messages)
 Route::prefix('webhooks')->group(function () {
-    Route::post('/whatsapp', [WhatsAppController::class, 'webhook']);
-    Route::get('/whatsapp/verify', [WhatsAppController::class, 'verify']);
+    Route::match(['get', 'post'], '/whatsapp', [WhatsAppController::class, 'webhook']);
 });
 
 // Health check
