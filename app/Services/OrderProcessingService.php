@@ -168,6 +168,10 @@ class OrderProcessingService
             'delivery_address' => $orderData['delivery_address'] ?: $merchant->location_address,
             'assigned_workflow_id' => $workflow->id,
             'payment_terms_override' => null, // Use merchant default
+            // Catalog order specific fields
+            'catalog_order' => $orderData['catalog_order'] ?? false,
+            'catalog_id' => $orderData['catalog_id'] ?? null,
+            'catalog_total' => $orderData['catalog_total'] ?? null,
         ]);
     }
 
