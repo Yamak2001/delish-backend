@@ -14,6 +14,7 @@ use App\Http\Controllers\API\WhatsAppController;
 use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\PurchaseOrderController;
 use App\Http\Controllers\API\DeliveryController;
+use App\Http\Controllers\API\ConversationController;
 
 // Public routes
 Route::prefix('auth')->group(function () {
@@ -115,5 +116,17 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/{delivery}/assign-driver', 'assignDriver');
         Route::patch('/{delivery}/status', 'updateStatus');
         Route::get('/{delivery}/track', 'trackDelivery');
+    });
+
+    // WhatsApp Conversations Management
+    Route::prefix('whatsapp')->controller(ConversationController::class)->group(function () {
+        Route::get('/conversations', 'index');
+        Route::get('/conversations/search', 'search');
+        Route::get('/conversations/stats', 'stats');
+        Route::get('/conversations/{id}', 'show');
+        Route::patch('/conversations/{id}/status', 'updateStatus');
+        Route::get('/messages/history/{phone}', 'messageHistory');
+        Route::post('/messages/send', 'sendMessage');
+        Route::put('/messages/read/{conversationId}', 'markAsRead');
     });
 });

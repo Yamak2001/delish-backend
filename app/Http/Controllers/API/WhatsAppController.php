@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Recipe;
 use App\Services\OrderProcessingService;
 use App\Services\WhatsAppMediaService;
+use App\Services\ConversationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
@@ -18,13 +19,16 @@ class WhatsAppController extends Controller
 {
     private OrderProcessingService $orderProcessingService;
     private WhatsAppMediaService $whatsappMediaService;
+    private ConversationService $conversationService;
 
     public function __construct(
         OrderProcessingService $orderProcessingService,
-        WhatsAppMediaService $whatsappMediaService
+        WhatsAppMediaService $whatsappMediaService,
+        ConversationService $conversationService
     ) {
         $this->orderProcessingService = $orderProcessingService;
         $this->whatsappMediaService = $whatsappMediaService;
+        $this->conversationService = $conversationService;
     }
 
     /**
@@ -63,6 +67,9 @@ class WhatsAppController extends Controller
 
             // Verify webhook signature for POST requests
             $this->verifyWebhook($request);
+
+            // Forward webhook to messaging microservice for storage
+            $this->conversationService->forwardWebhook($request->all());
 
             // Handle different webhook types
             $entry = $request->input('entry.0', []);

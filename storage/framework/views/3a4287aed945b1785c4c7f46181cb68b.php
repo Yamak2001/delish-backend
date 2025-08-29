@@ -66,4 +66,4 @@
         </div>
     </div>
 </header>
-<?php /**PATH /Users/asemyamak/myProjects/delish-erp/delish-backend/vendor/laravel/framework/src/Illuminate/Foundation/Providers/../resources/exceptions/renderer/components/navigation.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Providers/../resources/exceptions/renderer/components/navigation.blade.php ENDPATH**/ ?>

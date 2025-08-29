@@ -24,4 +24,4 @@
 >
     <span x-text="copied ? 'Copied to clipboard' : 'Copy as Markdown'"></span>
 </div>
-<?php /**PATH /Users/asemyamak/myProjects/delish-erp/delish-backend/vendor/laravel/framework/src/Illuminate/Foundation/Providers/../resources/exceptions/renderer/components/copy-button.blade.php ENDPATH**/ ?>
+<?php /**PATH /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Providers/../resources/exceptions/renderer/components/copy-button.blade.php ENDPATH**/ ?>
