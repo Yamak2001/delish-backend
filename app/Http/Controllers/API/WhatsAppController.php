@@ -174,7 +174,7 @@ class WhatsAppController extends Controller
                 $this->handleContactMessage($merchant, $message);
                 break;
             default:
-                $this->whatsappMediaService->sendMessage($phoneNumber, "Sorry, I don't understand that type of message yet. Please send a text message with your order. 📝");
+                // Just log unhandled message types, don't send auto-reply
                 Log::warning('Unhandled message type', ['type' => $messageType, 'message' => $message]);
         }
     }
