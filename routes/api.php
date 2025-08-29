@@ -15,6 +15,7 @@ use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\PurchaseOrderController;
 use App\Http\Controllers\API\DeliveryController;
 use App\Http\Controllers\API\ConversationController;
+use App\Http\Controllers\API\MediaController;
 
 // Public routes
 Route::prefix('auth')->group(function () {
@@ -25,6 +26,16 @@ Route::prefix('auth')->group(function () {
 // WhatsApp webhook (public endpoint) - handles both GET (verification) and POST (messages)
 Route::prefix('webhooks')->group(function () {
     Route::match(['get', 'post'], '/whatsapp', [WhatsAppController::class, 'webhook']);
+});
+
+// Private media serving (requires authentication)
+Route::middleware(['auth:api'])->prefix('media')->group(function () {
+    Route::get('/whatsapp/{type}/{filename}', [MediaController::class, 'serveWhatsAppMedia'])
+         ->where('type', 'images|videos|audios|documents|contacts')
+         ->where('filename', '[A-Za-z0-9_\-\.]+');
+    Route::post('/temporary-url', [MediaController::class, 'generateTemporaryUrl']);
+    Route::post('/info', [MediaController::class, 'getMediaInfo']);
+    Route::get('/whatsapp', [MediaController::class, 'listWhatsAppMedia']);
 });
 
 // Health check

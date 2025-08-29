@@ -59,27 +59,28 @@ class WhatsAppMediaService
                 return null;
             }
 
-            // Step 3: Generate filename and save
+            // Step 3: Generate filename and save to PRIVATE storage
             $extension = $this->getExtensionFromMimeType($mimeType);
             $filename = $this->generateUniqueFilename($mediaId, $messageType, $extension);
-            $relativePath = "whatsapp/{$messageType}s/{$filename}";
+            $relativePath = "private/whatsapp/{$messageType}s/{$filename}";
 
-            // Save to storage
-            Storage::disk('public')->put($relativePath, $fileResponse->body());
+            // Save to PRIVATE storage (not publicly accessible)
+            Storage::put($relativePath, $fileResponse->body());
 
-            Log::info('Media downloaded successfully', [
+            Log::info('Media downloaded successfully to private storage', [
                 'media_id' => $mediaId,
                 'filename' => $filename,
                 'file_size' => $fileSize,
-                'mime_type' => $mimeType
+                'mime_type' => $mimeType,
+                'private_path' => $relativePath
             ]);
 
             return [
                 'media_id' => $mediaId,
                 'filename' => $filename,
                 'path' => $relativePath,
-                'full_path' => Storage::disk('public')->path($relativePath),
-                'url' => Storage::disk('public')->url($relativePath),
+                'full_path' => Storage::path($relativePath),
+                'private_storage' => true,
                 'mime_type' => $mimeType,
                 'file_size' => $fileSize
             ];

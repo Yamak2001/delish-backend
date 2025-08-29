@@ -126,7 +126,7 @@ class WhatsAppController extends Controller
                            ->first();
 
         if (!$merchant) {
-            $this->whatsappMediaService->sendMessage($phoneNumber, "Sorry, your business is not registered with Delish. Please contact us to set up your account. 📞");
+            Log::info('Message from unregistered merchant', ['phone' => $phoneNumber]);
             return;
         }
 
